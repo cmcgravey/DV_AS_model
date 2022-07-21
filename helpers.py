@@ -46,6 +46,6 @@ def get_model(img_rows, img_cols, num_pixels):
     model.add(Flatten())
     model.add(Dense(64, activation='relu'))
     model.add(Dense(16, activation='relu'))
-    model.add(Dense(2, activation='softmax'))
+    model.add(Dense(3, activation='softmax'))
 
     return model 

@@ -12,7 +12,7 @@ image_path = '/Users/colinmcgravey/Documents/WebScraper/augmented'
 
 ## specify new size of image in dataframe, will maintain aspect ratio ##
 img_rows, img_cols = 32, 32
-num_classes = 2
+num_classes = 3
 
 ## converts the Vader images into an array ##
 arr = np.empty((0, img_rows, img_cols, 3), dtype=int)
@@ -22,15 +22,16 @@ Vader_images, Vader_labels = images_to_df('vader', arr, img_rows, image_path, 0)
 arr2 = np.empty((0, img_rows, img_cols, 3), dtype=int)
 Skywalker_images, Skywalker_labels = images_to_df('anakin', arr2, img_rows, image_path, 1)
 
-print(Vader_images.shape)
-print(Skywalker_images.shape)
-
-print(Vader_labels.shape)
-print(Skywalker_labels.shape)
+## converts the Chewbacca images into an array ## 
+arr3 = np.empty((0, img_rows, img_cols, 3), dtype=int)
+Chewy_images, Chewy_labels = images_to_df('chewbacca', arr3, img_rows, image_path, 2)
 
 ## creates the dataset and labels for train and testing ##
 Dataset = np.append(Vader_images, Skywalker_images, axis = 0)
 Labels = np.append(Vader_labels, Skywalker_labels, axis = 0)
+
+Dataset = np.append(Dataset, Chewy_images, axis=0)
+Labels = np.append(Labels, Chewy_labels, axis=0)
 
 ## normalizes pixel values within the dataset to be between 0 and 1 ##
 Dataset = Dataset.astype('float32')
@@ -50,4 +51,4 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 model.fit(X_train, Y_train, epochs=50, shuffle=True)
 
 ## saves model ## 
-model.save('starwars_model.h5')
+model.save('starwars_model1.h5')

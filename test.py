@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 # This will work for the models if you download them from the links above. 
 # If you want to export your own models, use the name of them here instead. 
-model_1 = tf.keras.models.load_model('starwars_model.h5')
+model_1 = tf.keras.models.load_model('starwars_model1.h5')
 # model_2 = tf.keras.models.load_model('cnn_model.h5')
 
 def plot_image(array, i, labels):
@@ -25,15 +25,24 @@ def predict_image(model, x):
   x = np.expand_dims(x, axis=0)
 
   image_predict = model.predict(x, verbose=0)
-  print("Predicted Label: ", "Vader" if np.argmax(image_predict) == 0 else "Skywalker")
+  label = label_as_string(np.argmax(image_predict))
+  print("Predicted Label: ", label)
 
   plt.imshow(np.squeeze(x))
   plt.xticks([])
   plt.yticks([])
-  plt.title("Vader" if np.argmax(image_predict) == 0 else "Skywalker")
+  plt.title(label)
   plt.show()
  
   return image_predict
+
+def label_as_string(num):
+  if num == 0:
+    return 'Vader'
+  elif num == 1:
+    return 'Skywalker'
+  elif num == 2:
+    return 'Chewbacca'
 
 
 def plot_value_array(predictions_array, true_label, h):
@@ -49,7 +58,7 @@ def plot_value_array(predictions_array, true_label, h):
   plt.show()
 
 
-path = "vader_test2.png"
+path = "test_images/chewy_test.jpeg"
 img = load_img(path, target_size=(32,32), color_mode = "rgb") 
 img_arr = img_to_array(img)
 arr = predict_image(model_1,  img_arr)
