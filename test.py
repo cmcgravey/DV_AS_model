@@ -45,19 +45,6 @@ def label_as_string(num):
     return 'Chewbacca'
 
 
-def plot_value_array(predictions_array, true_label, h):
-  plt.grid(False)
-  plt.xticks(range(10))
-  plt.yticks([])
-  thisplot = plt.bar(range(10), predictions_array[0], color="#777777")
-  plt.ylim([(-1*h), h])
-  predicted_label = np.argmax(predictions_array)
-
-  thisplot[predicted_label].set_color('red')
-  thisplot[true_label].set_color('blue')
-  plt.show()
-
-
 path = "test_images/chewy_test.jpeg"
 img = load_img(path, target_size=(32,32), color_mode = "rgb") 
 img_arr = img_to_array(img)
